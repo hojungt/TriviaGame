@@ -1,32 +1,40 @@
-// PART 1 - PRE-GAME CONTENT
+// PART 1 - GAME START BUTTON
 
 // append start button to content
 var $startButton = $('<input type=button value="start">');
-$startButton.addClass('custom-button');
+$startButton.addClass('start-button');
 $('.content').append($startButton);
 
-$('.custom-button').click (function() {
-    $('.custom-button').remove()
+// =====================
+// PART 2 - SET TIMER
 
-    // function to load game here, to include PART 2 & 3 & 4
+var intervalId;
+var timeRemaining = 30;
 
-    // =====================
-    // PART 2 - SET TIMER
 
-    var timeRemaining = 30;
+// when start button is clicked, load game here:
+$('.start-button').click (function() {
 
-    function timerStart() {
-        function reduceTime() {
-            timeRemaining--;
-        };
-        setInterval(reduceTime, 1000);
-        };
-    timerStart();
+    $('.start-button').remove();   
 
+
+    intervalId = setInterval(count, 1000);
+    
+    function count() {
+        timeRemaining--;
+    }
+    
     var $timeRemaining = $('<h3>');
     $timeRemaining.addClass('time-remaining');
     $('.content').append($timeRemaining);
-    $('.time-remaining').text("Time Remaining: " + timeRemaining)
+    $('.time-remaining').text("Time Remaining: " + timeRemaining);
+
+
+
+    // var $timeRemaining = $('<h3>');
+    // $timeRemaining.addClass('time-remaining');
+    // $('.content').append($timeRemaining);
+    // $('.time-remaining').text("Time Remaining: " + timeRemaining);
 
 });
 
@@ -51,26 +59,37 @@ function fiveSeconds() {
 
 // Variables - set game score as state object:
 
-// var gameState = {
-//     rightCount: 0,
-//     wrongCount: 0,
-//     unansweredCount: 0,
-// };
+var gameState = {
+    rightCount: 0,
+    wrongCount: 0,
+    unansweredCount: 0,
+};
 
-// Variables - set question-answer set as object:
+// Variables - set question-answer set as an array with objects:
 
-// var questionSet = {
-//     Set1: {Q, A1, A2, A3, A4},
-//     Set2: {Q, A1, A2, A3, A4},
-//     Set3: {Q, A1, A2, A3, A4},
-//     Set4: {Q, A1, A2, A3, A4},
-//     Set5: {Q, A1, A2, A3, A4},
-//     Set6: {Q, A1, A2, A3, A4},
-//     Set7: {Q, A1, A2, A3, A4},
-//     Set8: {Q, A1, A2, A3, A4},
-//     Set9: {Q, A1, A2, A3, A4},
-//     Set10: {Q, A1, A2, A3, A4},
-// };
+var currentQuestion;
+
+var questionSet = [
+    {Q: "q", A1: "a", A2: "a", A3: "a", A4: "a"},
+    {Q: "q", A1: "a", A2: "a", A3: "a", A4: "a"},
+    {Q: "q", A1: "a", A2: "a", A3: "a", A4: "a"},
+    {Q: "q", A1: "a", A2: "a", A3: "a", A4: "a"},
+    {Q: "q", A1: "a", A2: "a", A3: "a", A4: "a"},
+    {Q: "q", A1: "a", A2: "a", A3: "a", A4: "a"},
+    {Q: "q", A1: "a", A2: "a", A3: "a", A4: "a"},
+    {Q: "q", A1: "a", A2: "a", A3: "a", A4: "a"},
+    {Q: "q", A1: "a", A2: "a", A3: "a", A4: "a"},
+    {Q: "q", A1: "a", A2: "a", A3: "a", A4: "a"},
+];
+
+// for loop to display questionSet
+
+function displayQuestionSet() {
+    var $question = $('<h3>');
+    $question.addClass('question');
+    $('.content').append($question);
+    $('.question').text(questionSet[i].Q);
+}
 
 // Link values to HTML elements:
 

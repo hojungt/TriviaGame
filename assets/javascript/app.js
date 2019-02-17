@@ -2,14 +2,14 @@
 
 // Variables - Countdown Timer
 var intervalId;
-var timeRemaining = 3;
+var timeRemaining = 5;
 
 // Variables - Answer Timeout
 var timeOut;
 
 // Variables - set game score as state object:
 var gameState = {
-    currentQuestion: 0,
+    currentQuestion: -1,
     rightCount: 0,
     wrongCount: 0,
     unansweredCount: 0,
@@ -17,8 +17,8 @@ var gameState = {
 
 // Variables - set question-answer set as an array with objects:
 var questionSet = [
-    {Q: "Which of the following is NOT a name of the Seven Dwarfs in Snow White?", A: "3. Shy is not one of them! The Seven Dwarfs' names are Doc, Dopey, Bashful, Grumpy, Sneezy, Sleepy, and Happy.", A1: "Doc", A2: "Sneezy", A3: "Shy", A4: "Happy"},
-    {Q: "Which of the following lists the original movies' release dates correctly?", A: "2. The Little Mermaid 1989, Aladdin 1992, The Lion King 1994, Hercules 1997", A1: "Aladdin, The Little Mermaid, The Lion King, Hercules", A2: "The Little Mermaid, Aladdin, The Lion King, Hercules", A3: "The Little Mermaid, Aladdin, Hercules, The Lion King", A4: "Aladdin, The Little Mermaid,The Lion King, Hercules"},
+    {Q: "Which of the following is NOT a name of the Seven Dwarfs in Snow White?", A: "A3", EX:"Shy is not one of them! The Seven Dwarfs' names are Doc, Dopey, Bashful, Grumpy, Sneezy, Sleepy, and Happy.", A1: "Doc", A2: "Sneezy", A3: "Shy", A4: "Happy"},
+    {Q: "Which of the following lists the original movies' release dates correctly?", A: "A2", EX:"The Little Mermaid 1989, Aladdin 1992, The Lion King 1994, Hercules 1997", A1: "Aladdin, The Little Mermaid, The Lion King, Hercules", A2: "The Little Mermaid, Aladdin, The Lion King, Hercules", A3: "The Little Mermaid, Aladdin, Hercules, The Lion King", A4: "Aladdin, The Little Mermaid,The Lion King, Hercules"},
     {Q: "q", A: "A", A1: "a", A2: "a", A3: "a", A4: "a"},
     {Q: "q", A: "A", A1: "a", A2: "a", A3: "a", A4: "a"},
     {Q: "q", A: "A", A1: "a", A2: "a", A3: "a", A4: "a"},
@@ -32,34 +32,36 @@ var questionSet = [
 // function - for loop to display questionSet...
 function displayQuestionSet() {
 
-    // for (var i=0; i<questionSet.length; i++){
-    //     gameState.currentQuestion++;
-    // }
+    gameState.currentQuestion++;
 
         var $question = $('<h3>');
-        $question.addClass('question');
+        $question.attr('id', 'question');
         $('.content').append($question);
         $('.question').text(questionSet[gameState.currentQuestion].Q);
 
         var $answerOption1 = $('<h4>');
-        $answerOption1.addClass('answer-option1');
+        $answerOption1.addClass('answer-option');
+        $answerOption1.attr('id', 'option1');
         $('.content').append($answerOption1);
-        $('.answer-option1').text(questionSet[gameState.currentQuestion].A1);
+        $('#option1').text(questionSet[gameState.currentQuestion].A1);
 
         var $answerOption2 = $('<h4>');
-        $answerOption2.addClass('answer-option2');
+        $answerOption2.addClass('answer-option');
+        $answerOption2.attr('id', 'option2');
         $('.content').append($answerOption2);
-        $('.answer-option2').text(questionSet[gameState.currentQuestion].A2);
+        $('#option2').text(questionSet[gameState.currentQuestion].A2);
 
         var $answerOption3 = $('<h4>');
-        $answerOption3.addClass('answer-option3');
+        $answerOption3.addClass('answer-option');
+        $answerOption3.attr('id', 'option3');
         $('.content').append($answerOption3);
-        $('.answer-option3').text(questionSet[gameState.currentQuestion].A3);
+        $('#option3').text(questionSet[gameState.currentQuestion].A3);
 
         var $answerOption4 = $('<h4>');
-        $answerOption4.addClass('answer-option4');
+        $answerOption4.addClass('answer-option');
+        $answerOption4.attr('id', 'option4');
         $('.content').append($answerOption4);
-        $('.answer-option4').text(questionSet[gameState.currentQuestion].A4);
+        $('#option4').text(questionSet[gameState.currentQuestion].A4);
 }
 
 // function - append start button to content:
@@ -82,7 +84,7 @@ function displayAnswer() {
     var $answer = $('<h3>');
     $answer.addClass('answer');
     $('.content').append($answer);
-    $('.answer').text(questionSet[gameState.currentQuestion].A);    
+    $('.answer').text(questionSet[gameState.currentQuestion].EX);    
 }
 
 // function - unanswered text display
@@ -136,7 +138,7 @@ $('.start-button').click (function() {
         if (timeRemaining == 0) {
             clearInterval(intervalId);
 
-            $('h4').remove();
+            $('.answer-option').remove();
             unansweredText();
 
             displayAnswer();
@@ -156,15 +158,22 @@ $('.start-button').click (function() {
             // clearTimeout();
         }
 
-        else {
+        // if user makes a guess, on click event
+        $('answer-option').on('click', function() {
 
-            // on click event
-            // if correct answer is clicked, guessed right!
+            var userGuess = $(this).text;
+            console.log(userGuess);
+            if (userGuess == questionSet[gameState.currentQuestion].A) {
+                correctText();
+            }
 
-            // if incorrect answer is clicked, guessed wrong!
+        });
+
+        // if correct answer is clicked, guessed right!
+
+        // if incorrect answer is clicked, guessed wrong!
 
 
-        }
 
     }
 

@@ -1,6 +1,6 @@
 # __Trivia Game__
 ### Disney Princesses and Their Stories :crown:
-[Github] 
+[Github] https://hojungt.github.io/TriviaGame/
 ##### * How well do you know the stories of Disney Princesses? Test it here!
 ##### * Hitting the start button to begin.
 ##### * The whole game is operated on countdown timer and timeout frame. If there is no user input, the game will move on based on the set intervals.

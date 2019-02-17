@@ -7,7 +7,7 @@ var timeRemaining = 5;
 // Variables - Answer Timeout
 var timeOut;
 
-// Variables - set game score as state object:
+// Variables - set game state object:
 var gameState = {
     currentQuestion: -1,
     rightCount: 0,
@@ -20,25 +20,43 @@ var gameState = {
 var questionSet = [
     {Q: "Which of the following is NOT a name of the Seven Dwarfs in Snow White?", A: "A3", EX:"Shy is not one of them! The Seven Dwarfs' names are Doc, Dopey, Bashful, Grumpy, Sneezy, Sleepy, and Happy.", A1: "Doc", A2: "Sneezy", A3: "Shy", A4: "Happy"},
     {Q: "Which of the following lists the original movies' release dates correctly?", A: "A2", EX:"The Little Mermaid 1989, Aladdin 1992, The Lion King 1994, Hercules 1997", A1: "Aladdin, The Little Mermaid, The Lion King, Hercules", A2: "The Little Mermaid, Aladdin, The Lion King, Hercules", A3: "The Little Mermaid, Aladdin, Hercules, The Lion King", A4: "Aladdin, The Little Mermaid,The Lion King, Hercules"},
-    {Q: "q", A: "A1", A1: "a", A2: "a", A3: "a", A4: "a"},
-    {Q: "q", A: "A1", A1: "a", A2: "a", A3: "a", A4: "a"},
-    {Q: "q", A: "A1", A1: "a", A2: "a", A3: "a", A4: "a"},
-    {Q: "q", A: "A1", A1: "a", A2: "a", A3: "a", A4: "a"},
-    {Q: "q", A: "A1", A1: "a", A2: "a", A3: "a", A4: "a"},
-    {Q: "q", A: "A1", A1: "a", A2: "a", A3: "a", A4: "a"},
-    {Q: "q", A: "A1", A1: "a", A2: "a", A3: "a", A4: "a"},
-    {Q: "q", A: "A1", A1: "a", A2: "a", A3: "a", A4: "a"},
+    {Q: "q", A: "A1", EX: "EX", A1: "a", A2: "a", A3: "a", A4: "a"},
 ];
 
-// function - for loop to display questionSet...
+// function - append question and answer options
 function displayQuestionSet() {
-
     gameState.currentQuestion++;
 
+    if (gameState.currentQuestion >= questionSet.length) {
+        clearInterval(intervalId);
+        $('.time-remaining').remove();
+
+        
+
+        var $rightCount = $('<h3>');
+        $rightCount.addClass('score');
+        $rightCount.attr('id', 'right-count');
+        $('.content').append($rightCount);
+        $('#right-count').text("Correct Guesses: " + gameState.rightCount);
+
+        var $wrongCount = $('<h3>');
+        $wrongCount.addClass('score');
+        $wrongCount.attr('id', 'wrong-count');
+        $('.content').append($wrongCount);
+        $('#wrong-count').text("Inorrect Guesses: " + gameState.wrongCount);
+
+        var $unansweredCount = $('<h3>');
+        $unansweredCount.addClass('score');
+        $unansweredCount.attr('id', 'unanswered-count');
+        $('.content').append($unansweredCount);
+        $('#unanswered-count').text("Unanswered: " + gameState.unansweredCount);
+    }
+
+    else {
         var $question = $('<h3>');
         $question.attr('id', 'question');
         $('.content').append($question);
-        $('.question').text(questionSet[gameState.currentQuestion].Q);
+        $('#question').text(questionSet[gameState.currentQuestion].Q);
 
         var $answerOption1 = $('<button>');
         $answerOption1.addClass('answer-option');
@@ -63,21 +81,22 @@ function displayQuestionSet() {
         $answerOption4.attr('id', 'A4');
         $('.content').append($answerOption4);
         $('#A4').text(questionSet[gameState.currentQuestion].A4);
+    }
 }
 
-// function - append start button to content:
+// function - append start button to content
 function startButton() {
     var $startButton = $('<input type=button value="start">');
     $startButton.addClass('start-button');
     $('.content').append($startButton);
 }
 
-// function - display countdown timer
+// function - append countdown timer
 function displayTimer() {
     var $timeRemaining = $('<h3>');
     $timeRemaining.addClass('time-remaining');
     $('.content').append($timeRemaining);
-    $('.time-remaining').text("Time Remaining: " + timeRemaining);
+    $('.time-remaining').text("Time Remaining: " + 5);
 }
 
 // function - display correct answer
@@ -112,21 +131,44 @@ function incorrectText() {
     $('.incorrect-text').text("That's Wrong...");
 }
 
-
+// function - content timeout between questions
 function contentTimeout() {
-    timeOut = setTimeout (function() {
-        fiveSeconds();
-    }, 5000);
-    
+    timeOut = setTimeout (function() {fiveSeconds();}, 5000);
+
     function fiveSeconds() {
-        $('.question').remove();
+        $('#question').remove();
         $('.answer').remove();
         $('.unanswered-text').remove();
         $('.incorrect-text').remove();
         $('.correct-text').remove();
+        $('.time-remaining').remove();
+        timerCountdown();
         displayQuestionSet();
     }
+}
 
+// function - timer countdown 
+function timerCountdown() {
+    displayTimer();
+    timeRemaining = 5;
+    intervalId = setInterval(count, 1000);
+    function count() {
+        timeRemaining--;
+        $('.time-remaining').text("Time Remaining: " + timeRemaining);
+
+        // if user didn't make a guess...
+        if (timeRemaining == 0) {
+            clearInterval(intervalId);
+
+            $('.answer-option').remove();
+            unansweredText();
+            displayAnswer();
+            gameState.unansweredCount++;
+            console.log(gameState.unansweredCount);
+
+            contentTimeout();
+        }
+    }  
 }
 
 
@@ -142,34 +184,16 @@ $('.start-button').click (function() {
 
     // remove start button...
     $('.start-button').remove();   
-    // show timer...
-    displayTimer();
+    // show timer countdown...
+    timerCountdown();
     // show question and answer options...
     displayQuestionSet();
 
-    // timer countdown...
-    intervalId = setInterval(count, 1000);
-    function count() {
-        timeRemaining--;
-        $('.time-remaining').text("Time Remaining: " + timeRemaining);
-        
-        // if user didn't make a guess...
-        if (timeRemaining == 0) {
-            clearInterval(intervalId);
 
-            $('.answer-option').remove();
-            unansweredText();
-            displayAnswer();
-            gameState.unansweredCount++;
-            console.log(gameState.unansweredCount);
-
-            contentTimeout();
-        }
-    }
 
     // if user makes a guess, on click event
     $('button').on('click', function() {
-
+        // find id of userGuess
         var userGuess = $(this).attr('id');
         console.log(userGuess);
         if (userGuess == questionSet[gameState.currentQuestion].A) {
@@ -199,4 +223,3 @@ $('.start-button').click (function() {
     });
 
 });
-

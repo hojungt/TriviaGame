@@ -16,14 +16,15 @@ var gameState = {
 };
 
 // Variables - set question-answer set as an array with objects:
+// (abbr: Q question, A answer, EX explanation, A1 A2 A3 A4 answer options 1-4)
 var questionSet = [
     {Q: "Which of the following is NOT a name of the Seven Dwarfs in Snow White?", A: "A3", EX:"Shy is not one of them! The Seven Dwarfs' names are Doc, Dopey, Bashful, Grumpy, Sneezy, Sleepy, and Happy.", A1: "Doc", A2: "Sneezy", A3: "Shy", A4: "Happy"},
     {Q: "Which of the following lists the original movies' release dates correctly?", A: "A2", EX:"The Little Mermaid 1989, Aladdin 1992, The Lion King 1994, Hercules 1997", A1: "Aladdin, The Little Mermaid, The Lion King, Hercules", A2: "The Little Mermaid, Aladdin, The Lion King, Hercules", A3: "The Little Mermaid, Aladdin, Hercules, The Lion King", A4: "Aladdin, The Little Mermaid,The Lion King, Hercules"},
-    {Q: "q", A: "A", A1: "a", A2: "a", A3: "a", A4: "a"},
-    {Q: "q", A: "A", A1: "a", A2: "a", A3: "a", A4: "a"},
-    {Q: "q", A: "A", A1: "a", A2: "a", A3: "a", A4: "a"},
-    {Q: "q", A: "A", A1: "a", A2: "a", A3: "a", A4: "a"},
-    {Q: "q", A: "A", A1: "a", A2: "a", A3: "a", A4: "a"},
+    {Q: "q", A: "A1", A1: "a", A2: "a", A3: "a", A4: "a"},
+    {Q: "q", A: "A1", A1: "a", A2: "a", A3: "a", A4: "a"},
+    {Q: "q", A: "A1", A1: "a", A2: "a", A3: "a", A4: "a"},
+    {Q: "q", A: "A1", A1: "a", A2: "a", A3: "a", A4: "a"},
+    {Q: "q", A: "A1", A1: "a", A2: "a", A3: "a", A4: "a"},
     {Q: "q", A: "A1", A1: "a", A2: "a", A3: "a", A4: "a"},
     {Q: "q", A: "A1", A1: "a", A2: "a", A3: "a", A4: "a"},
     {Q: "q", A: "A1", A1: "a", A2: "a", A3: "a", A4: "a"},
@@ -111,6 +112,24 @@ function incorrectText() {
     $('.incorrect-text').text("That's Wrong...");
 }
 
+
+function contentTimeout() {
+    timeOut = setTimeout (function() {
+        fiveSeconds();
+    }, 5000);
+    
+    function fiveSeconds() {
+        $('.question').remove();
+        $('.answer').remove();
+        $('.unanswered-text').remove();
+        $('.incorrect-text').remove();
+        $('.correct-text').remove();
+        displayQuestionSet();
+    }
+
+}
+
+
 // =====================================================================
 
 // 2. GAME CODE
@@ -140,22 +159,11 @@ $('.start-button').click (function() {
 
             $('.answer-option').remove();
             unansweredText();
-
             displayAnswer();
             gameState.unansweredCount++;
             console.log(gameState.unansweredCount);
 
-            timeOut = setTimeout (function() {
-                fiveSeconds();
-            }, 5000);
-            
-            function fiveSeconds() {
-                $('.question').remove();
-                $('.answer').remove();
-                $('.unanswered-text').remove();
-                displayQuestionSet();
-            }
-            // clearTimeout();
+            contentTimeout();
         }
     }
 
@@ -165,11 +173,27 @@ $('.start-button').click (function() {
         var userGuess = $(this).attr('id');
         console.log(userGuess);
         if (userGuess == questionSet[gameState.currentQuestion].A) {
+            clearInterval(intervalId);
+            
+            $('.answer-option').remove();
             correctText();
+            displayAnswer();
+            gameState.rightCount++;
+            console.log(gameState.rightCount);
+
+            contentTimeout();
         }
 
         else {
+            clearInterval(intervalId);
+
+            $('.answer-option').remove();
             incorrectText();
+            displayAnswer();
+            gameState.wrongCount++;
+            console.log(gameState.wrongCount);
+
+            contentTimeout();
         }
 
     });

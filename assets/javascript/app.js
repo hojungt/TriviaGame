@@ -1,34 +1,13 @@
-// PART 1 - GAME START BUTTON
+// 1. GLOBAL VARIABLES AND FUNCTION SET UP
 
-// append start button to content
-var $startButton = $('<input type=button value="start">');
-$startButton.addClass('start-button');
-$('.content').append($startButton);
-
-// =====================
-// PART 2 - SET 30S COUNTDOWN TIMER
-
+// Variables - Countdown Timer
 var intervalId;
 var timeRemaining = 3;
 
-// =====================
-// PART 3 - SET TIMEOUT?????
-
-
-// var timeOut = setTimeout (function() {
-//     fiveSeconds();
-// }, 5000);
-
-// function fiveSeconds() {
-
-// };
-
-
-// =====================
-// PART 4 - GAME CONTENT
+// Variables - Answer Timeout
+var timeOut;
 
 // Variables - set game score as state object:
-
 var gameState = {
     currentQuestion: 0,
     rightCount: 0,
@@ -37,10 +16,9 @@ var gameState = {
 };
 
 // Variables - set question-answer set as an array with objects:
-
 var questionSet = [
-    {Q: "Which of the following is NOT a name of the Seven Dwarfs in Snow White?", A: "Shy is not one of them! The Seven Dwarfs' names are Doc, Dopey, Bashful, Grumpy, Sneezy, Sleepy, and Happy.", A1: "Doc", A2: "Sneezy", A3: "Shy", A4: "Happy"},
-    {Q: "q", A: "A", A1: "a", A2: "a", A3: "a", A4: "a"},
+    {Q: "Which of the following is NOT a name of the Seven Dwarfs in Snow White?", A: "3. Shy is not one of them! The Seven Dwarfs' names are Doc, Dopey, Bashful, Grumpy, Sneezy, Sleepy, and Happy.", A1: "Doc", A2: "Sneezy", A3: "Shy", A4: "Happy"},
+    {Q: "Which of the following lists the original movies' release dates correctly?", A: "2. The Little Mermaid 1989, Aladdin 1992, The Lion King 1994, Hercules 1997", A1: "Aladdin, The Little Mermaid, The Lion King, Hercules", A2: "The Little Mermaid, Aladdin, The Lion King, Hercules", A3: "The Little Mermaid, Aladdin, Hercules, The Lion King", A4: "Aladdin, The Little Mermaid,The Lion King, Hercules"},
     {Q: "q", A: "A", A1: "a", A2: "a", A3: "a", A4: "a"},
     {Q: "q", A: "A", A1: "a", A2: "a", A3: "a", A4: "a"},
     {Q: "q", A: "A", A1: "a", A2: "a", A3: "a", A4: "a"},
@@ -51,8 +29,13 @@ var questionSet = [
     {Q: "q", A: "A1", A1: "a", A2: "a", A3: "a", A4: "a"},
 ];
 
-// for loop to display questionSet
+// function - for loop to display questionSet...
 function displayQuestionSet() {
+
+    // for (var i=0; i<questionSet.length; i++){
+    //     gameState.currentQuestion++;
+    // }
+
         var $question = $('<h3>');
         $question.addClass('question');
         $('.content').append($question);
@@ -79,43 +62,110 @@ function displayQuestionSet() {
         $('.answer-option4').text(questionSet[gameState.currentQuestion].A4);
 }
 
+// function - append start button to content:
+function startButton() {
+    var $startButton = $('<input type=button value="start">');
+    $startButton.addClass('start-button');
+    $('.content').append($startButton);
+}
 
-// For Loop - append questionSet with class and button attribute:
-
-
-
-// =====================================================================
-// when start button is clicked, load game here:
-$('.start-button').click (function() {
-
-    //remove start button
-    $('.start-button').remove();   
-
-    //timer count down
+// function - display countdown timer
+function displayTimer() {
     var $timeRemaining = $('<h3>');
     $timeRemaining.addClass('time-remaining');
     $('.content').append($timeRemaining);
     $('.time-remaining').text("Time Remaining: " + timeRemaining);
+}
+
+// function - display correct answer
+function displayAnswer() {
+    var $answer = $('<h3>');
+    $answer.addClass('answer');
+    $('.content').append($answer);
+    $('.answer').text(questionSet[gameState.currentQuestion].A);    
+}
+
+// function - unanswered text display
+function unansweredText() {
+    var $unanswered = $('<h3>');
+    $unanswered.addClass('unanswered-text');
+    $('.content').append($unanswered);
+    $('.unanswered-text').text("Times Up!");
+}
+
+// function - correct answer text display
+function correctText() {
+    var $correct = $('<h3>');
+    $correct.addClass('correct-text');
+    $('.content').append($correct);
+    $('.correct-text').text("That's Right!");
+}
+
+// function - incorrect answer text display
+function incorrectText() {
+    var $incorrect = $('<h3>');
+    $incorrect.addClass('incorrect-text');
+    $('.content').append($incorrect);
+    $('.incorrect-text').text("That's Wrong...");
+}
+
+// =====================================================================
+
+// 2. GAME CODE
+
+// start button...
+startButton();
+
+// when start button is clicked, load game:
+$('.start-button').click (function() {
+
+    // remove start button...
+    $('.start-button').remove();   
+    // show timer...
+    displayTimer();
+    // show question and answer options...
     displayQuestionSet();
 
+    // timer countdown...
     intervalId = setInterval(count, 1000);
-
     function count() {
         timeRemaining--;
         $('.time-remaining').text("Time Remaining: " + timeRemaining);
-        return timeRemaining;
-    }
-    
-// how to return remaining time to set logical operator?
+        
+        // if user didn't make a guess...
+        if (timeRemaining == 0) {
+            clearInterval(intervalId);
 
-    if (time == 0) {
-        clearInterval(intervalId);
-        gameState.unansweredCount++;
+            $('h4').remove();
+            unansweredText();
 
-        var $answer = $('<h3>');
-        $answer.addClass('answer');
-        $('.content').append($answer);
-        $('.answer').text(questionSet[gameState.currentQuestion].A);
+            displayAnswer();
+            gameState.unansweredCount++;
+            console.log(gameState.unansweredCount);
+
+            timeOut = setTimeout (function() {
+                fiveSeconds();
+            }, 5000);
+            
+            function fiveSeconds() {
+                $('.question').remove();
+                $('.answer').remove();
+                $('.unanswered-text').remove();
+                displayQuestionSet();
+            }
+            // clearTimeout();
+        }
+
+        else {
+
+            // on click event
+            // if correct answer is clicked, guessed right!
+
+            // if incorrect answer is clicked, guessed wrong!
+
+
+        }
+
     }
 
 });

@@ -20,18 +20,23 @@ var gameState = {
 var questionSet = [
     {Q: "Which of the following is NOT a name of the Seven Dwarfs in Snow White?", A: "A3", EX:"Shy is not one of them! The Seven Dwarfs' names are Doc, Dopey, Bashful, Grumpy, Sneezy, Sleepy, and Happy.", A1: "Doc", A2: "Sneezy", A3: "Shy", A4: "Happy"},
     {Q: "Which of the following lists the original movies' release dates correctly?", A: "A2", EX:"The Little Mermaid 1989, Aladdin 1992, The Lion King 1994, Hercules 1997", A1: "Aladdin, The Little Mermaid, The Lion King, Hercules", A2: "The Little Mermaid, Aladdin, The Lion King, Hercules", A3: "The Little Mermaid, Aladdin, Hercules, The Lion King", A4: "Aladdin, The Little Mermaid,The Lion King, Hercules"},
-    {Q: "q", A: "A1", EX: "EX", A1: "a", A2: "a", A3: "a", A4: "a"},
+    {Q: "In The Sword in the Stone, what does Merlin call The Greatest Force on Earth? ", A: "A4", EX: "You know lad, that love business is a powerful thing.", A1: "History", A2: "Friends", A3: "Family", A4: "Love"},
 ];
 
-// function - append question and answer options
+// function - append question and answer options through game
+// function - append score at end of game
 function displayQuestionSet() {
     gameState.currentQuestion++;
 
     if (gameState.currentQuestion >= questionSet.length) {
+
         clearInterval(intervalId);
         $('.time-remaining').remove();
 
-        
+        var $gameOver = $('<h3>');
+        $gameOver.addClass('text');
+        $('.content').append($gameOver);
+        $('.text').text("Game Over");
 
         var $rightCount = $('<h3>');
         $rightCount.addClass('score');
@@ -50,6 +55,16 @@ function displayQuestionSet() {
         $unansweredCount.attr('id', 'unanswered-count');
         $('.content').append($unansweredCount);
         $('#unanswered-count').text("Unanswered: " + gameState.unansweredCount);
+
+        var $restart = $('<button>');
+        $restart.addClass('restart-button');
+        $('.content').append($restart);
+        $('.restart-button').text("Restart Game");
+
+        // allowed to use location reload? 
+        $('.restart-button').on('click', function() {
+            location.reload();
+        });
     }
 
     else {
@@ -112,7 +127,7 @@ function unansweredText() {
     var $unanswered = $('<h3>');
     $unanswered.addClass('unanswered-text');
     $('.content').append($unanswered);
-    $('.unanswered-text').text("Times Up!");
+    $('.unanswered-text').text("Time's Up!");
 }
 
 // function - correct answer text display
@@ -189,13 +204,13 @@ $('.start-button').click (function() {
     // show question and answer options...
     displayQuestionSet();
 
-
-
     // if user makes a guess, on click event
     $('button').on('click', function() {
         // find id of userGuess
         var userGuess = $(this).attr('id');
         console.log(userGuess);
+
+        // if guessed correctly
         if (userGuess == questionSet[gameState.currentQuestion].A) {
             clearInterval(intervalId);
             
@@ -208,6 +223,7 @@ $('.start-button').click (function() {
             contentTimeout();
         }
 
+        // if guessed incorrectly
         else {
             clearInterval(intervalId);
 
@@ -219,7 +235,5 @@ $('.start-button').click (function() {
 
             contentTimeout();
         }
-
     });
-
 });

@@ -203,37 +203,37 @@ $('.start-button').click (function() {
     timerCountdown();
     // show question and answer options...
     displayQuestionSet();
+});
 
-    // if user makes a guess, on click event
-    $('button').on('click', function() {
-        // find id of userGuess
-        var userGuess = $(this).attr('id');
-        console.log(userGuess);
+// if user makes a guess, on click event
+$(document).on('click', '.answer-option', function() {
+    // find id of userGuess
+    var userGuess = $(this).attr('id');
+    console.log(userGuess);
 
-        // if guessed correctly
-        if (userGuess == questionSet[gameState.currentQuestion].A) {
-            clearInterval(intervalId);
-            
-            $('.answer-option').remove();
-            correctText();
-            displayAnswer();
-            gameState.rightCount++;
-            console.log(gameState.rightCount);
+    // if guessed correctly
+    if (userGuess == questionSet[gameState.currentQuestion].A) {
+        clearInterval(intervalId);
+        
+        $('.answer-option').remove();
+        correctText();
+        displayAnswer();
+        gameState.rightCount++;
+        console.log(gameState.rightCount);
 
-            contentTimeout();
-        }
+        contentTimeout();
+    }
 
-        // if guessed incorrectly
-        else {
-            clearInterval(intervalId);
+    // if guessed incorrectly
+    else {
+        clearInterval(intervalId);
 
-            $('.answer-option').remove();
-            incorrectText();
-            displayAnswer();
-            gameState.wrongCount++;
-            console.log(gameState.wrongCount);
+        $('.answer-option').remove();
+        incorrectText();
+        displayAnswer();
+        gameState.wrongCount++;
+        console.log(gameState.wrongCount);
 
-            contentTimeout();
-        }
-    });
+        contentTimeout();
+    }
 });

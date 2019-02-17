@@ -1,8 +1,8 @@
-// 1. GLOBAL VARIABLES AND FUNCTION SET UP
+// PART 1. GLOBAL VARIABLES AND FUNCTION SETUP
 
 // Variables - Countdown Timer
 var intervalId;
-var timeRemaining = 5;
+var timeRemaining = 30;
 
 // Variables - Answer Timeout
 var timeOut;
@@ -19,8 +19,8 @@ var gameState = {
 // (abbr: Q question, A answer, EX explanation, A1 A2 A3 A4 answer options 1-4)
 var questionSet = [
     {Q: "Which of the following is NOT a name of the Seven Dwarfs in Snow White?", A: "A3", EX:"Shy is not one of them! The Seven Dwarfs' names are Doc, Dopey, Bashful, Grumpy, Sneezy, Sleepy, and Happy.", A1: "Doc", A2: "Sneezy", A3: "Shy", A4: "Happy"},
-    {Q: "Which of the following lists the original movies' release dates correctly?", A: "A2", EX:"The Little Mermaid 1989, Aladdin 1992, The Lion King 1994, Hercules 1997", A1: "Aladdin, The Little Mermaid, The Lion King, Hercules", A2: "The Little Mermaid, Aladdin, The Lion King, Hercules", A3: "The Little Mermaid, Aladdin, Hercules, The Lion King", A4: "Aladdin, The Little Mermaid,The Lion King, Hercules"},
-    {Q: "In The Sword in the Stone, what does Merlin call The Greatest Force on Earth? ", A: "A4", EX: "You know lad, that love business is a powerful thing.", A1: "History", A2: "Friends", A3: "Family", A4: "Love"},
+    {Q: "Which of the following lists the original movies' release dates correctly?", A: "A2", EX:"The Little Mermaid was released the earliest, in 1989; Aladdin was next in 1992; then there was The Lion King in 1994; lastly, Hercules was released in 1997", A1: "Aladdin, The Little Mermaid, The Lion King, Hercules", A2: "The Little Mermaid, Aladdin, The Lion King, Hercules", A3: "The Little Mermaid, Aladdin, Hercules, The Lion King", A4: "Aladdin, The Little Mermaid,The Lion King, Hercules"},
+    {Q: "In The Sword in the Stone, what does Merlin call The Greatest Force on Earth? ", A: "A4", EX: '"You know lad, that love business is a powerful thing."', A1: "History", A2: "Friends", A3: "Family", A4: "Love"},
 ];
 
 // function - append question and answer options through game
@@ -28,6 +28,7 @@ var questionSet = [
 function displayQuestionSet() {
     gameState.currentQuestion++;
 
+    // if there is no question left...
     if (gameState.currentQuestion >= questionSet.length) {
 
         clearInterval(intervalId);
@@ -61,37 +62,38 @@ function displayQuestionSet() {
         $('.content').append($restart);
         $('.restart-button').text("Restart Game");
 
-        // allowed to use location reload? 
+        // game restarts at end of game: location reload
         $('.restart-button').on('click', function() {
             location.reload();
         });
     }
 
+    // if there are still questions to be answered...
     else {
         var $question = $('<h3>');
         $question.attr('id', 'question');
         $('.content').append($question);
         $('#question').text(questionSet[gameState.currentQuestion].Q);
 
-        var $answerOption1 = $('<button>');
+        var $answerOption1 = $('<h3>');
         $answerOption1.addClass('answer-option');
         $answerOption1.attr('id', 'A1');
         $('.content').append($answerOption1);
         $('#A1').text(questionSet[gameState.currentQuestion].A1);
 
-        var $answerOption2 = $('<button>');
+        var $answerOption2 = $('<h3>');
         $answerOption2.addClass('answer-option');
         $answerOption2.attr('id', 'A2');
         $('.content').append($answerOption2);
         $('#A2').text(questionSet[gameState.currentQuestion].A2);
 
-        var $answerOption3 = $('<button>');
+        var $answerOption3 = $('<h3>');
         $answerOption3.addClass('answer-option');
         $answerOption3.attr('id', 'A3');
         $('.content').append($answerOption3);
         $('#A3').text(questionSet[gameState.currentQuestion].A3);
 
-        var $answerOption4 = $('<button>');
+        var $answerOption4 = $('<h3>');
         $answerOption4.addClass('answer-option');
         $answerOption4.attr('id', 'A4');
         $('.content').append($answerOption4);
@@ -114,7 +116,7 @@ function displayTimer() {
     $('.time-remaining').text("Time Remaining: " + 5);
 }
 
-// function - display correct answer
+// function - append correct answer
 function displayAnswer() {
     var $answer = $('<h3>');
     $answer.addClass('answer');
@@ -122,7 +124,7 @@ function displayAnswer() {
     $('.answer').text(questionSet[gameState.currentQuestion].EX);    
 }
 
-// function - unanswered text display
+// function - append unanswered text
 function unansweredText() {
     var $unanswered = $('<h3>');
     $unanswered.addClass('unanswered-text');
@@ -130,7 +132,7 @@ function unansweredText() {
     $('.unanswered-text').text("Time's Up!");
 }
 
-// function - correct answer text display
+// function - append correct text
 function correctText() {
     var $correct = $('<h3>');
     $correct.addClass('correct-text');
@@ -138,7 +140,7 @@ function correctText() {
     $('.correct-text').text("That's Right!");
 }
 
-// function - incorrect answer text display
+// function - append incorrect text
 function incorrectText() {
     var $incorrect = $('<h3>');
     $incorrect.addClass('incorrect-text');
@@ -162,7 +164,7 @@ function contentTimeout() {
     }
 }
 
-// function - timer countdown 
+// function - run countdown timer
 function timerCountdown() {
     displayTimer();
     timeRemaining = 5;
@@ -171,7 +173,7 @@ function timerCountdown() {
         timeRemaining--;
         $('.time-remaining').text("Time Remaining: " + timeRemaining);
 
-        // if user didn't make a guess...
+        // if user didn't make a guess within given time...
         if (timeRemaining == 0) {
             clearInterval(intervalId);
 
@@ -186,10 +188,9 @@ function timerCountdown() {
     }  
 }
 
-
 // =====================================================================
 
-// 2. GAME CODE
+// PART 2. GAME IN ACTION
 
 // start button...
 startButton();
@@ -205,13 +206,16 @@ $('.start-button').click (function() {
     displayQuestionSet();
 });
 
-// if user makes a guess, on click event
+// if user makes a guess, look for on-click event:
+// $(document) must be used for the on-click event to be applied throughout game 
+// (courtesy of Henry-classmate)
 $(document).on('click', '.answer-option', function() {
-    // find id of userGuess
+    
+    // find id of user's guess and check if it matches the answer
     var userGuess = $(this).attr('id');
     console.log(userGuess);
 
-    // if guessed correctly
+    // if guessed correctly...
     if (userGuess == questionSet[gameState.currentQuestion].A) {
         clearInterval(intervalId);
         
@@ -224,7 +228,7 @@ $(document).on('click', '.answer-option', function() {
         contentTimeout();
     }
 
-    // if guessed incorrectly
+    // if guessed incorrectly..
     else {
         clearInterval(intervalId);
 

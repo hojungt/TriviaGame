@@ -18,9 +18,16 @@ var gameState = {
 // Variables - set question-answer set as an array with objects:
 // (abbr: Q question, A answer, EX explanation, A1 A2 A3 A4 answer options 1-4)
 var questionSet = [
-    {Q: "Which of the following is NOT a name of the Seven Dwarfs in Snow White?", A: "A3", EX:"Shy is not one of them! The Seven Dwarfs' names are Doc, Dopey, Bashful, Grumpy, Sneezy, Sleepy, and Happy.", A1: "Doc", A2: "Sneezy", A3: "Shy", A4: "Happy"},
-    {Q: "Which of the following lists the original movies' release dates correctly?", A: "A2", EX:"The Little Mermaid was released the earliest, in 1989; Aladdin was next in 1992; then there was The Lion King in 1994; lastly, Hercules was released in 1997", A1: "Aladdin, The Little Mermaid, The Lion King, Hercules", A2: "The Little Mermaid, Aladdin, The Lion King, Hercules", A3: "The Little Mermaid, Aladdin, Hercules, The Lion King", A4: "Aladdin, The Little Mermaid,The Lion King, Hercules"},
-    {Q: "In The Sword in the Stone, what does Merlin call The Greatest Force on Earth? ", A: "A4", EX: '"You know lad, that love business is a powerful thing."', A1: "History", A2: "Friends", A3: "Family", A4: "Love"},
+    {Q: "Which of the following princess is the youngest Disney princess?", A: "A2", EX: "Snow White is 14 years old; Ariel is 15; Rapunzel is 18, and Cinderella is 19.", A1: "Ariel", A2: "Snow White", A3: "Rapunzel", A4: "Cinderella"},
+    {Q: "What did Pocahontas see in her dream that made her believe that a change was coming?", A: "A4", EX: "With the help of Grandmother Willow, her dream of a spinning arrow makes Pocahontas believe a change is coming.", A1: "A burning blue fire", A2: "A hawk circling her village", A3: "A talking tree", A4: "A spinning arrow"},
+    {Q: "Which of the following has the shortest hair?", A: "A1", EX: "Rapunzel’s hair goes from 75 feet in length to a much shorter pixie cut by the end of the film.", A1: "Rapunzel", A2: "Jasime", A3: "Belle", A4: "Cinderella"},
+    {Q: "What color is Aurora's dress when she pricks her finger on the spinning wheel?", A: "A3", EX: "It's blue.", A1: "yellow", A2: "pink", A3: "blue", A4: "gree"},
+    {Q: "Which of the following princess does NOT have both parents alive throughout the story?", A: "A2", EX: "Belle's mother never appeared throughout Beauty and the Beast.", A1: "Belle", A2: "Mulan", A3: "Aurora", A4: "Merida"},
+    {Q: "How many sisters does Ariel have?", A: "A1", EX: "Ariel has 6 sisters, and their names are Aquata, Andrina, Arista, Attina, Adella and Alana.", A1: "5", A2: "6", A3: "7", A4: "8"},
+    {Q: "What did Cinderella serve all the animals for breakfast at the beginning of the movie?", A: "A3", EX: "It's corn.", A1: "bread crumb", A2: "carrot", A3: "corn", A4: "sunflower seed"},
+    {Q: "What did Grandma Fa give Mulan before seeing the matchmaker, in hopes to bring good luck to Mulan?", A: "A4", EX: "A special cricket, which the grandma held in hand while walking across a busy street.", A1: "A golden charm", A2: "A fan", A3: "A silk dress", A4: "A special cricket"},
+    {Q: "What is the name of Jasmine's tiger?", A: "A1", EX: "Rajah is the name of Jasmine's pet tiger.", A1: "Rajah", A2: "Jarah", A3: "Jafar", A4: "Raj"},
+    {Q: "Which of the following is NOT the name of Merida's brothers?", A: "A2", EX: "Merida has three brothers, and their names are Harris, Hubert, and Hamish.", A1: "Harris", A2: "Hubert", A3: "Harry", A4: "Hamish"},
 ];
 
 // function - append question and answer options through game

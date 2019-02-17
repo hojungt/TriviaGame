@@ -18,16 +18,16 @@ var gameState = {
 // Variables - set question-answer set as an array with objects:
 // (abbr: Q question, A answer, EX explanation, A1 A2 A3 A4 answer options 1-4)
 var questionSet = [
-    {Q: "Which of the following princess is the youngest Disney princess?", A: "A2", EX: "Snow White is 14 years old; Ariel is 15; Rapunzel is 18, and Cinderella is 19.", A1: "Ariel", A2: "Snow White", A3: "Rapunzel", A4: "Cinderella"},
-    {Q: "What did Pocahontas see in her dream that made her believe that a change was coming?", A: "A4", EX: "With the help of Grandmother Willow, her dream of a spinning arrow makes Pocahontas believe a change is coming.", A1: "A burning blue fire", A2: "A hawk circling her village", A3: "A talking tree", A4: "A spinning arrow"},
-    {Q: "Which of the following has the shortest hair?", A: "A1", EX: "Rapunzel’s hair goes from 75 feet in length to a much shorter pixie cut by the end of the film.", A1: "Rapunzel", A2: "Jasime", A3: "Belle", A4: "Cinderella"},
-    {Q: "What color is Aurora's dress when she pricks her finger on the spinning wheel?", A: "A3", EX: "It's blue.", A1: "yellow", A2: "pink", A3: "blue", A4: "gree"},
-    {Q: "Which of the following princess does NOT have both parents alive throughout the story?", A: "A2", EX: "Belle's mother never appeared throughout Beauty and the Beast.", A1: "Belle", A2: "Mulan", A3: "Aurora", A4: "Merida"},
-    {Q: "How many sisters does Ariel have?", A: "A1", EX: "Ariel has 6 sisters, and their names are Aquata, Andrina, Arista, Attina, Adella and Alana.", A1: "5", A2: "6", A3: "7", A4: "8"},
-    {Q: "What did Cinderella serve all the animals for breakfast at the beginning of the movie?", A: "A3", EX: "It's corn.", A1: "bread crumb", A2: "carrot", A3: "corn", A4: "sunflower seed"},
-    {Q: "What did Grandma Fa give Mulan before seeing the matchmaker, in hopes to bring good luck to Mulan?", A: "A4", EX: "A special cricket, which the grandma held in hand while walking across a busy street.", A1: "A golden charm", A2: "A fan", A3: "A silk dress", A4: "A special cricket"},
-    {Q: "What is the name of Jasmine's tiger?", A: "A1", EX: "Rajah is the name of Jasmine's pet tiger.", A1: "Rajah", A2: "Jarah", A3: "Jafar", A4: "Raj"},
-    {Q: "Which of the following is NOT the name of Merida's brothers?", A: "A2", EX: "Merida has three brothers, and their names are Harris, Hubert, and Hamish.", A1: "Harris", A2: "Hubert", A3: "Harry", A4: "Hamish"},
+    {Q: "Which of the following princess is the youngest Disney princess?", A: "A2", EX: "Snow White is 14 years old, Ariel is 15, Rapunzel is 18, and Cinderella is 19.", A1: "Ariel", A2: "Snow White", A3: "Rapunzel", A4: "Cinderella", GIF: "https://media.giphy.com/media/uLda64US3sb16/giphy.gif"},
+    {Q: "What did Pocahontas see in her dream that made her believe that a change was coming?", A: "A4", EX: "With the help of Grandmother Willow, her dream of a spinning arrow makes Pocahontas believe a change is coming.", A1: "A burning blue fire", A2: "A hawk circling her village", A3: "A talking tree", A4: "A spinning arrow", GIF:"https://media.giphy.com/media/9aOWMFD0kqXGU/giphy.gif"},
+    {Q: "Which of the following has the shortest hair?", A: "A1", EX: "While Rapunzel is known for her longest hair in the plot (75 feet long), her hair is also the shortest pixie cut by the end of her story.", A1: "Rapunzel", A2: "Jasime", A3: "Belle", A4: "Cinderella", GIF: "https://media.giphy.com/media/hjDMQSeTMjL56/giphy.gif"},
+    {Q: "What color is Aurora's dress when she pricks her finger on the spinning wheel?", A: "A3", EX: "It's blue.", A1: "yellow", A2: "pink", A3: "blue", A4: "green", GIF: "https://media.giphy.com/media/hyFPjOcSTg436/giphy.gif"},
+    {Q: "Which of the following princess does NOT have both parents alive throughout her story?", A: "A1", EX: "Belle's mother never appeared throughout Beauty and the Beast.", A1: "Belle", A2: "Mulan", A3: "Aurora", A4: "Merida", GIF: "https://media.giphy.com/media/l4EpeJOWTFgbL7cZO/giphy.gif"},
+    {Q: "How many sisters does Ariel have?", A: "A2", EX: "Ariel has 6 sisters, and their names are Aquata, Andrina, Arista, Attina, Adella and Alana.", A1: "5", A2: "6", A3: "7", A4: "8", GIF: "https://media.giphy.com/media/tKJ84kdImR99S/giphy.gif"},
+    {Q: "What did Cinderella serve all the animals for breakfast at the beginning of the movie?", A: "A3", EX: "It's corn.", A1: "bread crumb", A2: "carrot", A3: "corn", A4: "sunflower seed", GIF: "https://media.giphy.com/media/JT4y3fyrMVrnG/giphy.gif"},
+    {Q: "What did Grandma Fa give Mulan before seeing the matchmaker, in hopes to bring good luck to Mulan?", A: "A4", EX: "She gave Mulan a special cricket, which the grandma held in hand while walking across a busy street...", A1: "A golden charm", A2: "A fan", A3: "A silk dress", A4: "A special cricket", GIF: "https://media.giphy.com/media/osbXlH2i7ZqOQ/giphy.gif"},
+    {Q: "What is the name of Jasmine's tiger?", A: "A1", EX: "Rajah is the name of Jasmine's pet tiger.", A1: "Rajah", A2: "Jarah", A3: "Jafar", A4: "Raj", GIF: "https://i.gifer.com/2Ifd.gif"},
+    {Q: "Which of the following is NOT the name of Merida's brothers?", A: "A3", EX: "Merida has three brothers, and their names are Harris, Hubert, and Hamish.", A1: "Harris", A2: "Hubert", A3: "Harry", A4: "Hamish", GIF: "https://media.giphy.com/media/vKd8S2I3H5oac/giphy.gif"},
 ];
 
 // function - append question and answer options through game
@@ -120,7 +120,7 @@ function displayTimer() {
     var $timeRemaining = $('<h3>');
     $timeRemaining.addClass('time-remaining');
     $('.content').append($timeRemaining);
-    $('.time-remaining').text("Time Remaining: " + 5);
+    $('.time-remaining').text("Time Remaining: " + 30);
 }
 
 // function - append correct answer
@@ -155,6 +155,14 @@ function incorrectText() {
     $('.incorrect-text').text("That's Wrong...");
 }
 
+// function - append gif
+function gif(){
+    var $gif = $('<div>');
+    $gif.addClass('gif');
+    $('.content').append($gif);
+    $('.gif').html("<img src='" + questionSet[gameState.currentQuestion].GIF + "' alt='answer gif'>");
+}
+
 // function - content timeout between questions
 function contentTimeout() {
     timeOut = setTimeout (function() {fiveSeconds();}, 5000);
@@ -166,6 +174,7 @@ function contentTimeout() {
         $('.incorrect-text').remove();
         $('.correct-text').remove();
         $('.time-remaining').remove();
+        $('.gif').remove();
         timerCountdown();
         displayQuestionSet();
     }
@@ -174,7 +183,7 @@ function contentTimeout() {
 // function - run countdown timer
 function timerCountdown() {
     displayTimer();
-    timeRemaining = 5;
+    timeRemaining = 30;
     intervalId = setInterval(count, 1000);
     function count() {
         timeRemaining--;
@@ -187,6 +196,7 @@ function timerCountdown() {
             $('.answer-option').remove();
             unansweredText();
             displayAnswer();
+            gif();
             gameState.unansweredCount++;
             console.log(gameState.unansweredCount);
 
@@ -229,6 +239,7 @@ $(document).on('click', '.answer-option', function() {
         $('.answer-option').remove();
         correctText();
         displayAnswer();
+        gif();
         gameState.rightCount++;
         console.log(gameState.rightCount);
 
@@ -242,6 +253,7 @@ $(document).on('click', '.answer-option', function() {
         $('.answer-option').remove();
         incorrectText();
         displayAnswer();
+        gif();
         gameState.wrongCount++;
         console.log(gameState.wrongCount);
 

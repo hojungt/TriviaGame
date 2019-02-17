@@ -39,29 +39,29 @@ function displayQuestionSet() {
         $('.content').append($question);
         $('.question').text(questionSet[gameState.currentQuestion].Q);
 
-        var $answerOption1 = $('<h4>');
+        var $answerOption1 = $('<button>');
         $answerOption1.addClass('answer-option');
-        $answerOption1.attr('id', 'option1');
+        $answerOption1.attr('id', 'A1');
         $('.content').append($answerOption1);
-        $('#option1').text(questionSet[gameState.currentQuestion].A1);
+        $('#A1').text(questionSet[gameState.currentQuestion].A1);
 
-        var $answerOption2 = $('<h4>');
+        var $answerOption2 = $('<button>');
         $answerOption2.addClass('answer-option');
-        $answerOption2.attr('id', 'option2');
+        $answerOption2.attr('id', 'A2');
         $('.content').append($answerOption2);
-        $('#option2').text(questionSet[gameState.currentQuestion].A2);
+        $('#A2').text(questionSet[gameState.currentQuestion].A2);
 
-        var $answerOption3 = $('<h4>');
+        var $answerOption3 = $('<button>');
         $answerOption3.addClass('answer-option');
-        $answerOption3.attr('id', 'option3');
+        $answerOption3.attr('id', 'A3');
         $('.content').append($answerOption3);
-        $('#option3').text(questionSet[gameState.currentQuestion].A3);
+        $('#A3').text(questionSet[gameState.currentQuestion].A3);
 
-        var $answerOption4 = $('<h4>');
+        var $answerOption4 = $('<button>');
         $answerOption4.addClass('answer-option');
-        $answerOption4.attr('id', 'option4');
+        $answerOption4.attr('id', 'A4');
         $('.content').append($answerOption4);
-        $('#option4').text(questionSet[gameState.currentQuestion].A4);
+        $('#A4').text(questionSet[gameState.currentQuestion].A4);
 }
 
 // function - append start button to content:
@@ -157,25 +157,22 @@ $('.start-button').click (function() {
             }
             // clearTimeout();
         }
-
-        // if user makes a guess, on click event
-        $('answer-option').on('click', function() {
-
-            var userGuess = $(this).text;
-            console.log(userGuess);
-            if (userGuess == questionSet[gameState.currentQuestion].A) {
-                correctText();
-            }
-
-        });
-
-        // if correct answer is clicked, guessed right!
-
-        // if incorrect answer is clicked, guessed wrong!
-
-
-
     }
+
+    // if user makes a guess, on click event
+    $('button').on('click', function() {
+
+        var userGuess = $(this).attr('id');
+        console.log(userGuess);
+        if (userGuess == questionSet[gameState.currentQuestion].A) {
+            correctText();
+        }
+
+        else {
+            incorrectText();
+        }
+
+    });
 
 });
 
